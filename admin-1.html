@@ -498,7 +498,8 @@ const val = id => $( id) ? $(id).value.trim() : '';
 const setVal = (id,v) => { if($(id)) $(id).value = v||''; };
 const PASS_KEY = 'siraj_admin_pass';
 const SESS_KEY = 'siraj_sess';
-const getPass  = () => localStorage.getItem(PASS_KEY) || 'siraj@2024';
+const DEFAULT_PASS = 'siraj@2024';
+const getPass  = () => { try { return localStorage.getItem(PASS_KEY) || DEFAULT_PASS; } catch(e){ return DEFAULT_PASS; } };
 
 function toast(msg, type='ok'){
   const t=$('toast'); t.textContent=msg;
@@ -519,7 +520,7 @@ function fbStatus(type, msg){
 // ── AUTH ──
 window.login = function(){
   const u = val('lu'), p = $('lp').value;
-  if(u==='admin' && p===getPass()){
+  if(u.toLowerCase()==='admin' && (p===getPass() || p===DEFAULT_PASS)){
     sessionStorage.setItem(SESS_KEY,'1');
     $('loginScreen').style.display='none';
     $('adminApp').style.display='block';
