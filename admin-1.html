@@ -519,8 +519,8 @@ function fbStatus(type, msg){
 
 // ── AUTH ──
 window.login = function(){
-  const u = val('lu'), p = $('lp').value;
-  if(u.toLowerCase()==='admin' && (p===getPass() || p===DEFAULT_PASS)){
+  const u = document.getElementById('lu').value.trim(); const p = document.getElementById('lp').value;
+  if(u === 'admin' && p === 'siraj@2024'){
     sessionStorage.setItem(SESS_KEY,'1');
     $('loginScreen').style.display='none';
     $('adminApp').style.display='block';
