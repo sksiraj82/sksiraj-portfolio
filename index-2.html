@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SK SIRAJ — Full Stack Developer</title>
+<meta name="description" content="SK Siraj - Full Stack Developer & Android App Creator. Building websites, web apps and Android applications."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+<style>
+:root{
+  --royal:#2563EB;--navy:#0F172A;--green:#22C55E;
+  --dark:#0D1117;--card:#161B27;--border:rgba(37,99,235,0.22);
+  --text:#E2E8F0;--muted:#94A3B8;--white:#FFFFFF;
+  --grad:linear-gradient(135deg,#2563EB,#1E3A8A);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden;}
+
+/* ── LOADER ── */
+#siteLoader{position:fixed;inset:0;background:var(--dark);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s;}
+#siteLoader.hide{opacity:0;pointer-events:none;}
+.loader-logo{font-size:2rem;font-weight:700;color:#fff;}
+.loader-logo span{color:var(--green);}
+.loader-bar{width:160px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+.loader-fill{height:100%;width:0;background:var(--grad);border-radius:2px;animation:load 1.5s ease forwards;}
+@keyframes load{to{width:100%;}}
+.loader-text{font-size:.8rem;color:var(--muted);}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(13,17,23,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 24px;}
+.nav-logo{font-size:1.25rem;font-weight:700;color:#fff;letter-spacing:-.5px;}
+.nav-logo span{color:var(--green);}
+.nav-links{display:flex;gap:26px;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:500;transition:.2s;letter-spacing:.2px;}
+.nav-links a:hover{color:#fff;}
+.nav-hire{background:var(--royal);color:#fff;padding:8px 18px;border-radius:8px;text-decoration:none;font-size:.82rem;font-weight:600;transition:.2s;}
+.nav-hire:hover{background:#1D4ED8;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s;}
+.mob-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--dark);border-bottom:1px solid var(--border);padding:16px 24px;z-index:999;}
+.mob-menu.open{display:block;}
+.mob-menu a{display:block;padding:11px 0;color:var(--muted);text-decoration:none;font-weight:500;font-size:.88rem;border-bottom:1px solid rgba(255,255,255,.05);}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding:80px 24px 60px;position:relative;overflow:hidden;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(37,99,235,.1);border:1px solid var(--border);border-radius:100px;padding:6px 16px;font-size:.72rem;font-weight:700;color:var(--royal);letter-spacing:.8px;text-transform:uppercase;margin-bottom:22px;}
+.pulse{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 1.8s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
+.hero-name{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;line-height:1.06;letter-spacing:-1.5px;margin-bottom:14px;}
+.hero-name .hl{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-tagline{color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:30px;max-width:460px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-p{background:var(--royal);color:#fff;padding:12px 26px;border-radius:10px;text-decoration:none;font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:7px;transition:.2s;}
+.btn-p:hover{background:#1D4ED8;transform:translateY(-2px);}
+.btn-g{border:1px solid var(--border);color:var(--text);padding:12px 26px;border-radius:10px;text-decoration:none;font-weight:600;font-size:.88rem;transition:.2s;}
+.btn-g:hover{border-color:var(--royal);color:var(--royal);}
+.hero-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;}
+.hc-avatar{width:84px;height:84px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:#fff;margin:0 auto 16px;letter-spacing:-1px;}
+.hc-name{text-align:center;font-weight:700;font-size:1.15rem;}
+.hc-role{text-align:center;color:var(--muted);font-size:.8rem;margin:4px 0 18px;}
+.hc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.hc-stat{background:var(--dark);border-radius:10px;padding:12px 6px;text-align:center;}
+.hc-stat .n{font-size:1.3rem;font-weight:700;color:var(--royal);}
+.hc-stat .l{font-size:.65rem;color:var(--muted);margin-top:2px;}
+.hc-pills{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:14px;}
+.pill{background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);border-radius:100px;padding:3px 11px;font-size:.7rem;font-weight:600;color:var(--royal);}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;pointer-events:none;}
+.o1{width:380px;height:380px;background:#2563EB;top:-80px;right:-80px;}
+.o2{width:280px;height:280px;background:#22C55E;bottom:-40px;left:-60px;}
+
+/* ── SHARED ── */
+section{padding:88px 24px;}
+.sec-max{max-width:1200px;margin:0 auto;}
+.sec-label{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--royal);margin-bottom:10px;}
+.sec-title{font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-1px;margin-bottom:14px;}
+.sec-sub{color:var(--muted);font-size:.95rem;line-height:1.7;max-width:540px;}
+.divider{width:44px;height:3px;background:var(--grad);border-radius:2px;margin:14px 0 38px;}
+
+/* ── ABOUT ── */
+#about{background:var(--navy);}
+.about-grid{display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:start;}
+.about-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;text-align:center;}
+.about-avatar{width:110px;height:110px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2.6rem;font-weight:700;color:#fff;margin:0 auto 18px;}
+.about-card h3{font-size:1.2rem;font-weight:700;}
+.about-role{color:var(--royal);font-size:.85rem;font-weight:600;margin:5px 0 14px;}
+.about-bio{color:var(--muted);font-size:.82rem;line-height:1.7;}
+.about-socials{display:flex;justify-content:center;gap:10px;margin-top:18px;}
+.about-socials a{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:.2s;font-size:.85rem;}
+.about-socials a:hover{border-color:var(--royal);color:var(--royal);}
+.about-text p{color:var(--muted);line-height:1.8;margin-bottom:18px;font-size:.92rem;}
+.about-highlights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;}
+.ahl{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;}
+.ahl-icon{width:34px;height:34px;border-radius:8px;background:rgba(37,99,235,.12);display:flex;align-items:center;justify-content:center;color:var(--royal);font-size:.9rem;flex-shrink:0;}
+.ahl h4{font-size:.82rem;font-weight:700;margin-bottom:3px;}
+.ahl p{font-size:.75rem;color:var(--muted);line-height:1.5;}
+
+/* ── SKILLS ── */
+#skills{background:var(--dark);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;}
+.skill-cat{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;}
+.skill-cat-title{font-size:.9rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:9px;}
+.skill-cat-title i{color:var(--royal);}
+.sbar-wrap{margin-bottom:12px;}
+.sbar-label{display:flex;justify-content:space-between;margin-bottom:5px;font-size:.76rem;font-weight:500;}
+.sbar-label span:last-child{color:var(--royal);}
+.sbar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.sbar-fill{height:100%;background:var(--grad);border-radius:2px;width:0;transition:width 1.1s cubic-bezier(.4,0,.2,1);}
+.stags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.stag{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.18);border-radius:5px;padding:4px 10px;font-size:.7rem;font-weight:600;color:var(--royal);}
+
+/* ── SERVICES ── */
+#services{background:var(--navy);}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;}
+.svc-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;transition:.3s;position:relative;overflow:hidden;}
+.svc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transition:.3s;transform-origin:left;}
+.svc-card:hover{border-color:rgba(37,99,235,.5);transform:translateY(-3px);}
+.svc-card:hover::after{transform:scaleX(1);}
+.svc-icon{width:48px;height:48px;border-radius:12px;background:rgba(37,99,235,.12);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--royal);margin-bottom:16px;}
+.svc-card h3{font-size:.95rem;font-weight:700;margin-bottom:8px;}
+.svc-card p{color:var(--muted);font-size:.82rem;line-height:1.65;}
+.svc-price{margin-top:14px;font-size:.78rem;font-weight:700;color:var(--green);}
+
+/* ── CUSTOM DEV ── */
+#custom-dev{background:var(--dark);}
+.cdev-wrap{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:44px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;}
+.target-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px;}
+.target-item{display:flex;align-items:center;gap:9px;font-size:.82rem;color:var(--muted);}
+.target-item::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.process{display:flex;flex-direction:column;gap:14px;}
+.pstep{display:flex;gap:14px;align-items:flex-start;}
+.pnum{width:34px;height:34px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0;}
+.pstep h4{font-size:.85rem;font-weight:700;margin-bottom:3px;}
+.pstep p{color:var(--muted);font-size:.76rem;line-height:1.5;}
+
+/* ── APK STORE ── */
+#apk-store{background:var(--navy);}
+.apk-wrap{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:34px;display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;max-width:820px;margin:0 auto;}
+.apk-icon{width:82px;height:82px;border-radius:18px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;}
+.apk-name{font-size:1.2rem;font-weight:700;margin-bottom:5px;}
+.apk-tline{color:var(--royal);font-size:.84rem;font-weight:600;margin-bottom:12px;}
+.apk-feats{display:flex;flex-wrap:wrap;gap:6px;}
+.af{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:5px;padding:3px 9px;font-size:.7rem;font-weight:600;color:var(--green);}
+.dl-btn{background:var(--green);color:#0D1117;padding:13px 20px;border-radius:12px;text-decoration:none;font-weight:700;font-size:.85rem;display:inline-flex;align-items:center;gap:7px;transition:.2s;white-space:nowrap;}
+.dl-btn:hover{background:#16A34A;transform:translateY(-2px);}
+.apk-ver{font-size:.72rem;color:var(--muted);text-align:center;margin-top:7px;}
+
+/* ── PROJECTS ── */
+#projects{background:var(--dark);}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:.3s;}
+.proj-card:hover{transform:translateY(-4px);border-color:rgba(37,99,235,.5);}
+.proj-thumb{height:150px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative;}
+.proj-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.55);border:1px solid var(--border);border-radius:5px;padding:2px 9px;font-size:.68rem;font-weight:600;color:var(--green);}
+.proj-body{padding:18px;}
+.ptags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.ptag{background:rgba(37,99,235,.07);border-radius:4px;padding:2px 7px;font-size:.68rem;color:var(--muted);}
+.proj-body h3{font-size:.95rem;font-weight:700;margin-bottom:7px;}
+.proj-body p{color:var(--muted);font-size:.8rem;line-height:1.6;margin-bottom:12px;}
+.proj-links{display:flex;gap:8px;}
+.plink{font-size:.76rem;font-weight:600;color:var(--royal);text-decoration:none;border:1px solid var(--border);padding:4px 11px;border-radius:5px;display:inline-flex;align-items:center;gap:4px;transition:.2s;}
+.plink:hover{border-color:var(--royal);}
+
+/* ── VIDEO ── */
+#video-demo{background:var(--navy);}
+.vid-wrap{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;max-width:780px;margin:0 auto;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;}
+.vid-ph{text-align:center;color:var(--muted);}
+.play-circle{width:72px;height:72px;border-radius:50%;background:var(--royal);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:#fff;margin:0 auto 14px;cursor:pointer;transition:.2s;}
+.play-circle:hover{background:#1D4ED8;transform:scale(1.05);}
+.vid-embed{width:100%;height:100%;border:none;}
+
+/* ── STATS ── */
+#stats{background:var(--dark);}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;text-align:center;transition:.3s;}
+.stat-card:hover{border-color:rgba(37,99,235,.5);}
+.stat-card .si{font-size:1.3rem;color:var(--royal);margin-bottom:10px;}
+.stat-card .sn{font-size:2.6rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.stat-card .sl{color:var(--muted);font-size:.8rem;margin-top:7px;}
+
+/* ── TESTIMONIALS ── */
+#testimonials{background:var(--navy);}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;position:relative;}
+.testi-card::before{content:'\201C';font-size:3.5rem;color:var(--royal);opacity:.25;position:absolute;top:6px;left:16px;line-height:1;font-family:Georgia,serif;}
+.testi-text{color:var(--muted);font-size:.82rem;line-height:1.8;margin-bottom:18px;padding-top:18px;}
+.testi-author{display:flex;align-items:center;gap:11px;}
+.ta-av{width:42px;height:42px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#fff;flex-shrink:0;}
+.ta-name{font-weight:700;font-size:.85rem;}
+.ta-role{color:var(--muted);font-size:.72rem;}
+.stars{color:#FBBF24;font-size:.76rem;margin-bottom:3px;}
+
+/* ── BLOG ── */
+#blog{background:var(--dark);}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;}
+.blog-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:.3s;}
+.blog-card:hover{border-color:rgba(37,99,235,.5);transform:translateY(-3px);}
+.blog-thumb{height:120px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2.4rem;}
+.blog-body{padding:18px;}
+.blog-meta{display:flex;gap:8px;font-size:.7rem;color:var(--muted);margin-bottom:9px;}
+.btag{background:rgba(37,99,235,.1);color:var(--royal);padding:2px 7px;border-radius:4px;font-weight:600;}
+.blog-card h3{font-size:.9rem;font-weight:700;line-height:1.4;margin-bottom:7px;}
+.blog-card p{color:var(--muted);font-size:.78rem;line-height:1.6;}
+.read-more{display:inline-flex;align-items:center;gap:5px;color:var(--royal);font-size:.76rem;font-weight:600;text-decoration:none;margin-top:10px;}
+
+/* ── CONTACT ── */
+#contact{background:var(--navy);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+.ci-list{display:flex;flex-direction:column;gap:12px;}
+.ci-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:14px;text-decoration:none;transition:.2s;}
+.ci-item:hover{border-color:rgba(37,99,235,.5);}
+.ci-ico{width:40px;height:40px;border-radius:9px;background:rgba(37,99,235,.12);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--royal);flex-shrink:0;}
+.ci-lbl{font-size:.7rem;color:var(--muted);margin-bottom:1px;}
+.ci-val{font-size:.86rem;font-weight:600;color:var(--text);}
+.cf-wrap{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;}
+.cf-wrap h3{font-size:1rem;font-weight:700;margin-bottom:20px;}
+.fg{margin-bottom:14px;}
+.fg label{display:block;font-size:.76rem;font-weight:600;margin-bottom:5px;color:var(--muted);}
+.fg input,.fg textarea,.fg select{width:100%;background:var(--dark);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-family:inherit;font-size:.86rem;outline:none;transition:.2s;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--royal);}
+.fg textarea{resize:vertical;min-height:90px;}
+.cf-btn{width:100%;background:var(--royal);color:#fff;border:none;padding:13px;border-radius:9px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;transition:.2s;}
+.cf-btn:hover{background:#1D4ED8;}
+.cf-ok{display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:8px;padding:12px;color:var(--green);font-size:.82rem;text-align:center;margin-top:10px;}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);border-top:1px solid var(--border);padding:44px 24px 24px;}
+.foot-inner{max-width:1200px;margin:0 auto;}
+.foot-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;}
+.foot-brand p{color:var(--muted);font-size:.82rem;line-height:1.7;margin:11px 0 18px;}
+.foot-socials{display:flex;gap:9px;}
+.foot-socials a{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:.2s;}
+.foot-socials a:hover{border-color:var(--royal);color:var(--royal);}
+.foot-col h4{font-size:.82rem;font-weight:700;margin-bottom:14px;color:#fff;}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.foot-col ul a{color:var(--muted);text-decoration:none;font-size:.78rem;transition:.2s;}
+.foot-col ul a:hover{color:#fff;}
+.foot-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.foot-bottom p{font-size:.75rem;color:var(--muted);}
+.admin-link{font-size:.72rem;color:var(--border);text-decoration:none;transition:.2s;}
+.admin-link:hover{color:var(--muted);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:22px;right:22px;background:var(--green);color:#0D1117;padding:11px 20px;border-radius:9px;font-weight:700;font-size:.82rem;z-index:9999;transform:translateY(100px);opacity:0;transition:.35s;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-inner,.about-grid,.cdev-wrap,.contact-grid{grid-template-columns:1fr;}
+  .hc-avatar{margin:0 auto 14px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .foot-top{grid-template-columns:1fr 1fr;}
+  .apk-wrap{grid-template-columns:1fr;text-align:center;}
+  .apk-feats{justify-content:center;}
+  .nav-links,.nav-hire{display:none;}
+  .hamburger{display:flex;}
+}
+@media(max-width:580px){
+  section{padding:66px 18px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .foot-top{grid-template-columns:1fr;}
+  .about-highlights{grid-template-columns:1fr;}
+  .target-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="siteLoader">
+  <div class="loader-logo">SK <span>SIRAJ</span></div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-text">Loading portfolio...</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">SK <span>SIRAJ</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#apk-store">APK</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-hire">Hire Me</a>
+    <div class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#about" onclick="toggleMob()">About</a>
+  <a href="#skills" onclick="toggleMob()">Skills</a>
+  <a href="#services" onclick="toggleMob()">Services</a>
+  <a href="#apk-store" onclick="toggleMob()">APK Store</a>
+  <a href="#projects" onclick="toggleMob()">Projects</a>
+  <a href="#blog" onclick="toggleMob()">Blog</a>
+  <a href="#contact" onclick="toggleMob()">Contact</a>
+</div>
+
+<!-- 1. HERO -->
+<section id="hero">
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div class="hero-inner">
+    <div data-aos="fade-right">
+      <div class="hero-badge"><span class="pulse"></span>Available for Projects</div>
+      <h1 class="hero-name">Hi, I'm <span class="hl" id="heroName">SK SIRAJ</span></h1>
+      <p class="hero-tagline" id="heroTagline">Full Stack Developer & Android App Creator. I build websites, web apps, and Android applications that help businesses grow.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-p"><i class="fa fa-rocket"></i> View Projects</a>
+        <a href="#contact" class="btn-g">Let's Talk</a>
+      </div>
+    </div>
+    <div data-aos="fade-left">
+      <div class="hero-card">
+        <div class="hc-avatar" id="hcAvatar">SK</div>
+        <div class="hc-name" id="hcName">SK SIRAJ</div>
+        <div class="hc-role" id="hcRole">Full Stack Developer</div>
+        <div class="hc-stats">
+          <div class="hc-stat"><div class="n" id="hSt1N">2+</div><div class="l" id="hSt1L">Years Exp</div></div>
+          <div class="hc-stat"><div class="n" id="hSt2N">15+</div><div class="l" id="hSt2L">Projects</div></div>
+          <div class="hc-stat"><div class="n" id="hSt3N">10+</div><div class="l" id="hSt3L">Clients</div></div>
+        </div>
+        <div class="hc-pills" id="hcPills">
+          <span class="pill">React</span><span class="pill">Node.js</span>
+          <span class="pill">Android</span><span class="pill">Python</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. ABOUT -->
+<section id="about">
+  <div class="sec-max">
+    <div class="about-grid">
+      <div data-aos="fade-right">
+        <div class="about-card">
+          <div class="about-avatar" id="aboutAvatar">SK</div>
+          <h3 id="aboutName">SK SIRAJ</h3>
+          <div class="about-role" id="aboutRole">Full Stack Developer</div>
+          <div class="about-bio" id="aboutBio">Passionate developer from India.</div>
+          <div class="about-socials">
+            <a id="sFb" href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a id="sGh" href="#" target="_blank"><i class="fab fa-github"></i></a>
+            <a id="sLi" href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a id="sYt" href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a id="sIg" href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <div class="sec-label">About Me</div>
+        <h2 class="sec-title">Developer with Purpose</h2>
+        <div class="divider"></div>
+        <p id="aboutP1">Loading...</p>
+        <p id="aboutP2"></p>
+        <div class="about-highlights">
+          <div class="ahl"><div class="ahl-icon"><i class="fas fa-code"></i></div><div><h4>Clean Code</h4><p>Well-structured, maintainable codebases.</p></div></div>
+          <div class="ahl"><div class="ahl-icon"><i class="fas fa-mobile-alt"></i></div><div><h4>Mobile First</h4><p>Responsive design for every device.</p></div></div>
+          <div class="ahl"><div class="ahl-icon"><i class="fas fa-bolt"></i></div><div><h4>Fast Delivery</h4><p>On time, without compromising quality.</p></div></div>
+          <div class="ahl"><div class="ahl-icon"><i class="fas fa-headset"></i></div><div><h4>Support</h4><p>Ongoing support after delivery.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. SKILLS -->
+<section id="skills">
+  <div class="sec-max">
+    <div class="sec-label" data-aos="fade-up">Technologies</div>
+    <h2 class="sec-title" data-aos="fade-up">Skills & Technologies</h2>
+    <div class="divider" data-aos="fade-up"></div>
+    <div class="skills-grid" id="skillsGrid" data-aos="fade-up"></div>
+  </div>
+</section>
+
+<!-- 4. SERVICES -->
+<section id="services">
+  <div class="sec-max">
+    <div class="sec-label" data-aos="fade-up">What I Offer</div>
+    <h2 class="sec-title" data-aos="fade-up">Services</h2>
+    <div class="divider" data-aos="fade-up"></div>
+    <div class="services-grid" id="servicesGrid" data-aos="fade-up"></div>
+  </div>
+</section>
+
+<!-- 5. CUSTOM DEV -->
+<section id="custom-dev">
+  <div class="sec-max">
+    <div class="cdev-wrap" data-aos="fade-up">
+      <div>
+        <div class="sec-label">Who I Work With</div>
+        <h2 class="sec-title" style="font-size:1.8rem;" id="cdevTitle">Custom Software & Website Development</h2>
+        <p style="color:var(--muted);font-size:.88rem;line-height:1.75;margin-bottom:16px;" id="cdevDesc">I build tailored digital solutions for a wide range of clients.</p>
+        <div class="target-grid" id="targetGrid"></div>
+      </div>
+      <div>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:18px;">My Development Process</h3>
+        <div class="process">
+          <div class="pstep"><div class="pnum">1</div><div><h4>Requirement Gathering</h4><p>Understanding your business, goals, and audience.</p></div></div>
+          <div class="pstep"><div class="pnum">2</div><div><h4>Design & Prototype</h4><p>Wireframes and visual designs for your approval.</p></div></div>
+          <div class="pstep"><div class="pnum">3</div><div><h4>Development</h4><p>Clean, scalable code built to last.</p></div></div>
+          <div class="pstep"><div class="pnum">4</div><div><h4>Testing & Delivery</h4><p>Thorough QA, then handover with documentation.</p></div></div>
+          <div class="pstep"><div class="pnum">5</div><div><h4>Ongoing Support</h4><p>Post-delivery updates and maintenance.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. APK STORE -->
+<section id="apk-store">
+  <div class="sec-max">
+    <div class="sec-label" data-aos="fade-up">Download</div>
+    <h2 class="sec-title" data-aos="fade-up">APK Store</h2>
+    <div class="divider" data-aos="fade-up"></div>
+    <div class="apk-wrap" data-aos="fade-up">
+      <div class="apk-icon">🚗</div>
+      <div>
+        <div class="apk-name" id="apkName">CAR TRIP REGISTER</div>
+        <div class="apk-tline" id="apkTagline">Smart Vehicle Trip & Expense Management App</div>
+        <div class="apk-feats" id="apkFeats"></div>
+      </div>
+      <div style="text-align:center;">
+        <a href="#" class="dl-btn" id="apkDlBtn"><i class="fas fa-download"></i> Download APK</a>
+        <div class="apk-ver" id="apkVer">v1.0.0 • Free</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. PROJECTS -->
+<section id="projects">
+  <div class="sec-max">
+    <div class="sec-label" data-aos="fade-up">Portfolio</div>
+    <h2 class="sec-title" data-aos="fade-up">Projects Showcase</h2>
+    <div class="divider" data-aos="fade-up"></div>
+    <div class="proj-grid" id="projectsGrid" data-aos="fade-up"></div>
+  </div>
+</section>
+
+<!-- 8. VIDEO DEMO -->
+<section id="video-demo">
+  <div class="sec-max">
+    <div class="sec-label" data-aos="fade-up">Demo</div>
+    <h2 class="sec-title" data-aos="fade-up">Video Demo</h2>
+    <div class="divider" data-aos="fade-up"></div>
+    <div class="vid-wrap" data-aos="fade-up" id="vidWrap">
+      <div class="vid-ph">
+        <div class="play-circle"><i class="fas fa-play"></i></div>
+        <p style="font-size:.85rem;">Watch the App Demo</p>
+        <p style="font-size:.76rem;margin-top:5px;color:var(--border);" id="vidHint">Set YouTube URL from Admin Panel</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. STATS -->
+<section id="stats">
+  <div class="sec-max">
+    <div class="sec-label" data-aos="fade-up">Numbers</div>
+    <h2 class="sec-title" data-aos="fade-up">Statistics</h2>
+    <div class="divider" data-aos="fade-up"></div>
+    <div class="stats-row" id="statsRow" data-aos="fade-up"></div>
+  </div>
+</section>
+
+<!-- 10. TESTIMONIALS -->
+<section id="testimonials">
+  <div class="sec-max">
+    <div class="sec-label" data-aos="fade-up">Reviews</div>
+    <h2 class="sec-title" data-aos="fade-up">What Clients Say</h2>
+    <div class="divider" data-aos="fade-up"></div>
+    <div class="testi-grid" id="testiGrid" data-aos="fade-up"></div>
+  </div>
+</section>
+
+<!-- 11. BLOG -->
+<section id="blog">
+  <div class="sec-max">
+    <div class="sec-label" data-aos="fade-up">Articles</div>
+    <h2 class="sec-title" data-aos="fade-up">Blog</h2>
+    <div class="divider" data-aos="fade-up"></div>
+    <div class="blog-grid" id="blogGrid" data-aos="fade-up"></div>
+  </div>
+</section>
+
+<!-- 12. CONTACT -->
+<section id="contact">
+  <div class="sec-max">
+    <div class="sec-label" data-aos="fade-up">Get In Touch</div>
+    <h2 class="sec-title" data-aos="fade-up">Contact</h2>
+    <div class="divider" data-aos="fade-up"></div>
+    <div class="contact-grid" data-aos="fade-up">
+      <div class="ci-list" id="ciList"></div>
+      <div class="cf-wrap">
+        <h3>Send a Message</h3>
+        <div class="fg"><label>Your Name</label><input id="cfN" placeholder="Enter your name"/></div>
+        <div class="fg"><label>Email</label><input type="email" id="cfE" placeholder="your@email.com"/></div>
+        <div class="fg"><label>Service</label>
+          <select id="cfS">
+            <option>Website Development</option><option>Android App</option>
+            <option>Custom Software</option><option>APK Help</option><option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea id="cfM" placeholder="Tell me about your project..."></textarea></div>
+        <button class="cf-btn" onclick="submitForm()"><i class="fas fa-paper-plane"></i> Send Message</button>
+        <div class="cf-ok" id="cfOk">✅ Message sent! I'll get back to you soon.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13. FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="nav-logo" style="font-size:1.3rem;">SK <span style="color:var(--green)">SIRAJ</span></div>
+        <p id="footTagline">Full Stack Developer & Android App Creator.</p>
+        <div class="foot-socials">
+          <a id="fFb" href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a id="fGh" href="#" target="_blank"><i class="fab fa-github"></i></a>
+          <a id="fLi" href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a id="fYt" href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+          <a id="fIg" href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="foot-col"><h4>Navigation</h4><ul>
+        <li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li>
+        <li><a href="#services">Services</a></li><li><a href="#projects">Projects</a></li>
+      </ul></div>
+      <div class="foot-col"><h4>Services</h4><ul>
+        <li><a href="#services">Web Dev</a></li><li><a href="#services">Android Apps</a></li>
+        <li><a href="#services">Custom Software</a></li><li><a href="#apk-store">APK Store</a></li>
+      </ul></div>
+      <div class="foot-col"><h4>Contact</h4><ul>
+        <li><a href="#contact">WhatsApp</a></li><li><a href="#contact">Email</a></li>
+        <li><a href="#contact">LinkedIn</a></li><li><a href="admin.html">Admin</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom">
+      <p id="footCopy">© 2024 SK SIRAJ. All rights reserved.</p>
+      <a href="admin.html" class="admin-link">⚙ Admin</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════ FIREBASE SDK ══════════════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ════════════════════════════════════════
+//  🔥 PASTE YOUR FIREBASE CONFIG HERE
+// ════════════════════════════════════════
+const firebaseConfig = {
+  apiKey: "AIzaSyDj464bnEymhHDV4XTDf8VZeH3F-COK0k",
+  authDomain: "sksiraj-portfolio.firebaseapp.com",
+  projectId: "sksiraj-portfolio",
+  storageBucket: "sksiraj-portfolio.firebasestorage.app",
+  messagingSenderId: "937841899577",
+  appId: "1:937841899577:web:94ed98c8b640fc4998f5e8"
+};
+// ════════════════════════════════════════
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ── DEFAULT DATA (fallback if Firestore empty) ──
+const DEF = {
+  hero:{ name:"SK SIRAJ", tagline:"Full Stack Developer & Android App Creator. I build websites, web apps, and Android applications that help businesses grow.", stat1Num:"2+", stat1Lbl:"Years Exp", stat2Num:"15+", stat2Lbl:"Projects", stat3Num:"10+", stat3Lbl:"Clients", techStack:["React","Node.js","Android","Python","MySQL"] },
+  about:{ name:"SK SIRAJ", role:"Full Stack Developer & Android Creator", bio:"Passionate developer from India, dedicated to building digital solutions that make real impact.", para1:"I'm SK Siraj — a Full Stack Developer specializing in web development, Android app creation, and custom software solutions.", para2:"Every project I take on is built with clean code, great design, and a deep understanding of the client's needs." },
+  socials:{ facebook:"#", github:"#", linkedin:"#", youtube:"#", instagram:"#", phone:"+91 XXXXXXXXXX", whatsapp:"+91 XXXXXXXXXX", email:"sksiraj@email.com", address:"West Bengal, India" },
+  skills:[
+    { category:"Frontend", icon:"fa-laptop-code", items:[{name:"HTML/CSS",pct:90},{name:"JavaScript",pct:85},{name:"React.js",pct:80},{name:"Bootstrap",pct:88}], tags:["HTML5","CSS3","JavaScript","React","Bootstrap","Tailwind"] },
+    { category:"Backend", icon:"fa-server", items:[{name:"Node.js",pct:78},{name:"PHP",pct:75},{name:"Python",pct:72},{name:"MySQL",pct:82}], tags:["Node.js","PHP","Python","MySQL","MongoDB"] },
+    { category:"Android", icon:"fa-android", items:[{name:"Java/Kotlin",pct:85},{name:"Android Studio",pct:88},{name:"SQLite",pct:80},{name:"Firebase",pct:75}], tags:["Java","Kotlin","Android Studio","Firebase","SQLite"] },
+    { category:"Tools", icon:"fa-tools", items:[{name:"Git/GitHub",pct:85},{name:"Figma",pct:70},{name:"VS Code",pct:95},{name:"Linux",pct:72}], tags:["Git","GitHub","Figma","VS Code","Postman"] }
+  ],
+  services:[
+    { icon:"fa-globe", title:"Website Development", desc:"Professional, responsive websites for businesses, portfolios, restaurants, clinics, and schools.", price:"Starting ₹2,999" },
+    { icon:"fa-mobile-alt", title:"Android App Development", desc:"Custom Android apps in Java/Kotlin — from simple utilities to full business management apps.", price:"Starting ₹5,999" },
+    { icon:"fa-cogs", title:"Custom Software", desc:"Tailored software for your specific business needs — student management, inventory, billing and more.", price:"Starting ₹4,999" },
+    { icon:"fa-shopping-cart", title:"E-Commerce Website", desc:"Online stores with payment integration, product management, order tracking, and admin dashboard.", price:"Starting ₹7,999" },
+    { icon:"fa-file-pdf", title:"PDF / Report Generator", desc:"Automated report & PDF systems for clinics, transport companies, schools, and businesses.", price:"Starting ₹3,499" },
+    { icon:"fa-database", title:"Database & API", desc:"Backend API development, database design, and integration with your existing systems.", price:"Starting ₹4,499" }
+  ],
+  apk:{ name:"CAR TRIP REGISTER", tagline:"Smart Vehicle Trip & Expense Management App", features:["Trip Register","Fuel Tracker","Driver Profile","Expense Mgmt","PDF Export","PIN Lock","Dark/Light Mode","Charts & Analytics"], downloadUrl:"#", version:"v1.0.0 • Free" },
+  projects:[
+    { icon:"🚗", title:"Car Trip Register", desc:"Android app for vehicle trip and expense management with PDF export.", tags:["Android","Java","SQLite"], badge:"Live", liveUrl:"#", githubUrl:"#" },
+    { icon:"🏥", title:"Clinic Management System", desc:"Patient management, appointment booking, and billing for clinics.", tags:["PHP","MySQL","Bootstrap"], badge:"Live", liveUrl:"#", githubUrl:"#" },
+    { icon:"🍽", title:"Restaurant Order App", desc:"Digital ordering system with table management and kitchen display.", tags:["React","Node.js","MongoDB"], badge:"Live", liveUrl:"#", githubUrl:"#" },
+    { icon:"📚", title:"School Management Portal", desc:"Attendance, marks, fee management and parent communication portal.", tags:["PHP","MySQL"], badge:"Live", liveUrl:"#", githubUrl:"#" },
+    { icon:"🛒", title:"E-Commerce Website", desc:"Full-featured online store with payment gateway and order tracking.", tags:["React","Node.js"], badge:"Live", liveUrl:"#", githubUrl:"#" },
+    { icon:"📊", title:"Business Dashboard", desc:"Analytics and reporting dashboard with visual charts and export.", tags:["JavaScript","Chart.js"], badge:"Live", liveUrl:"#", githubUrl:"#" }
+  ],
+  videoUrl:"",
+  stats:[
+    { icon:"fa-code", num:"15+", label:"Projects Completed" },
+    { icon:"fa-users", num:"10+", label:"Happy Clients" },
+    { icon:"fa-star", num:"4.9", label:"Average Rating" },
+    { icon:"fa-clock", num:"2+", label:"Years Experience" }
+  ],
+  testimonials:[
+    { text:"SK Siraj built our clinic website in just 5 days. The booking system works perfectly and our patients love it!", name:"Dr. Rahul Sharma", role:"Clinic Owner, Kolkata", stars:5 },
+    { text:"He created a custom order management app for our restaurant. It saved us so much time. Very professional!", name:"Ravi Patel", role:"Restaurant Owner, Howrah", stars:5 },
+    { text:"My school's student management portal is excellent — fee tracking, attendance, everything in one place.", name:"Sunita Devi", role:"School Principal, Murshidabad", stars:5 }
+  ],
+  blog:[
+    { icon:"💡", tag:"Android", date:"Dec 2024", title:"How I Built Car Trip Register from Scratch", desc:"The journey of building a full Android app — from idea to Play Store.", url:"#" },
+    { icon:"🌐", tag:"Web Dev", date:"Nov 2024", title:"Why Every Small Business Needs a Website in 2025", desc:"Real-world impact of having a professional online presence.", url:"#" },
+    { icon:"🔒", tag:"Security", date:"Oct 2024", title:"Simple Security Practices for Small Web Projects", desc:"Protecting your website without complex systems — practical tips.", url:"#" }
+  ],
+  contact:{ phone:"+91 XXXXXXXXXX", whatsapp:"+91 XXXXXXXXXX", email:"sksiraj@email.com", address:"West Bengal, India" },
+  footer:{ tagline:"Full Stack Developer & Android App Creator. Building digital solutions that help businesses grow.", copyright:"© 2024 SK SIRAJ. All rights reserved." },
+  customDev:{ title:"Custom Software & Website Development", desc:"I build tailored digital solutions for a wide range of clients.", targets:["Doctor / Clinic","Restaurant Owner","Student / College","School / Coaching","Shop Owner","Small Business","Working Professional","Freelancer","Startup Founder","Vehicle Rental"] }
+};
+
+// ── HELPERS ──
+function $t(id,v){ const e=document.getElementById(id); if(e) e.textContent=v||''; }
+function $h(id,v){ const e=document.getElementById(id); if(e) e.href=v||'#'; }
+
+// ── RENDER FUNCTIONS ──
+function renderHero(d){
+  const h=d||DEF.hero, s=d?null:null;
+  $t('heroName',h.name); $t('hcName',h.name); $t('hcRole',h.role||'Full Stack Developer');
+  $t('heroTagline',h.tagline);
+  $t('hSt1N',h.stat1Num); $t('hSt1L',h.stat1Lbl);
+  $t('hSt2N',h.stat2Num); $t('hSt2L',h.stat2Lbl);
+  $t('hSt3N',h.stat3Num); $t('hSt3L',h.stat3Lbl);
+  const ini=(h.name||'SK').split(' ').map(w=>w[0]).join('').slice(0,2);
+  $t('hcAvatar',ini);
+  const p=document.getElementById('hcPills');
+  if(p) p.innerHTML=(h.techStack||[]).map(t=>`<span class="pill">${t}</span>`).join('');
+}
+
+function renderAbout(about,socials){
+  const a=about||DEF.about, s=socials||DEF.socials;
+  $t('aboutName',a.name); $t('aboutRole',a.role); $t('aboutBio',a.bio);
+  $t('aboutP1',a.para1); $t('aboutP2',a.para2);
+  const ini=(a.name||'SK').split(' ').map(w=>w[0]).join('').slice(0,2);
+  $t('aboutAvatar',ini);
+  $h('sFb',s.facebook); $h('sGh',s.github); $h('sLi',s.linkedin);
+  $h('sYt',s.youtube); $h('sIg',s.instagram);
+}
+
+function renderSkills(skills){
+  const g=document.getElementById('skillsGrid'); if(!g) return;
+  g.innerHTML=(skills||DEF.skills).map(cat=>`
+    <div class="skill-cat">
+      <div class="skill-cat-title"><i class="fas ${cat.icon}"></i>${cat.category}</div>
+      ${(cat.items||[]).map(sk=>`
+        <div class="sbar-wrap">
+          <div class="sbar-label"><span>${sk.name}</span><span>${sk.pct}%</span></div>
+          <div class="sbar"><div class="sbar-fill" data-pct="${sk.pct}"></div></div>
+        </div>`).join('')}
+      <div class="stags">${(cat.tags||[]).map(t=>`<span class="stag">${t}</span>`).join('')}</div>
+    </div>`).join('');
+  setTimeout(()=>document.querySelectorAll('.sbar-fill').forEach(el=>el.style.width=el.dataset.pct+'%'),300);
+}
+
+function renderServices(services){
+  const g=document.getElementById('servicesGrid'); if(!g) return;
+  g.innerHTML=(services||DEF.services).map(s=>`
+    <div class="svc-card">
+      <div class="svc-icon"><i class="fas ${s.icon}"></i></div>
+      <h3>${s.title}</h3><p>${s.desc}</p>
+      <div class="svc-price">${s.price}</div>
+    </div>`).join('');
+}
+
+function renderCustomDev(d){
+  const cd=d||DEF.customDev;
+  $t('cdevTitle',cd.title); $t('cdevDesc',cd.desc);
+  const g=document.getElementById('targetGrid'); if(!g) return;
+  g.innerHTML=(cd.targets||[]).map(t=>`<div class="target-item">${t}</div>`).join('');
+}
+
+function renderApk(a){
+  const apk=a||DEF.apk;
+  $t('apkName',apk.name); $t('apkTagline',apk.tagline); $t('apkVer',apk.version);
+  $h('apkDlBtn',apk.downloadUrl);
+  const f=document.getElementById('apkFeats'); if(f) f.innerHTML=(apk.features||[]).map(x=>`<span class="af">${x}</span>`).join('');
+}
+
+function renderProjects(projects){
+  const g=document.getElementById('projectsGrid'); if(!g) return;
+  g.innerHTML=(projects||DEF.projects).map(p=>`
+    <div class="proj-card">
+      <div class="proj-thumb">${p.icon}<span class="proj-badge">${p.badge}</span></div>
+      <div class="proj-body">
+        <div class="ptags">${(p.tags||[]).map(t=>`<span class="ptag">${t}</span>`).join('')}</div>
+        <h3>${p.title}</h3><p>${p.desc}</p>
+        <div class="proj-links">
+          <a href="${p.liveUrl||'#'}" class="plink" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+          <a href="${p.githubUrl||'#'}" class="plink" target="_blank"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderVideo(url){
+  const wrap=document.getElementById('vidWrap'); if(!wrap) return;
+  if(!url||url.trim()===''){
+    wrap.innerHTML=`<div class="vid-ph"><div class="play-circle"><i class="fas fa-play"></i></div><p style="font-size:.85rem;">Watch the App Demo</p><p style="font-size:.76rem;margin-top:5px;color:var(--border);">Set YouTube URL from Admin Panel</p></div>`;
+    return;
+  }
+  let embed=url;
+  if(embed.includes('watch?v=')) embed=embed.replace('watch?v=','embed/');
+  else if(embed.includes('youtu.be/')) embed=embed.replace('youtu.be/','www.youtube.com/embed/');
+  if(!embed.includes('embed')) embed='https://www.youtube.com/embed/'+embed;
+  wrap.innerHTML=`<iframe class="vid-embed" src="${embed}" allowfullscreen></iframe>`;
+}
+
+function renderStats(stats){
+  const g=document.getElementById('statsRow'); if(!g) return;
+  g.innerHTML=(stats||DEF.stats).map(s=>`
+    <div class="stat-card">
+      <div class="si"><i class="fas ${s.icon}"></i></div>
+      <div class="sn">${s.num}</div>
+      <div class="sl">${s.label}</div>
+    </div>`).join('');
+}
+
+function renderTestimonials(testis){
+  const g=document.getElementById('testiGrid'); if(!g) return;
+  g.innerHTML=(testis||DEF.testimonials).map(t=>`
+    <div class="testi-card">
+      <div class="testi-text">${t.text}</div>
+      <div class="testi-author">
+        <div class="ta-av">${(t.name||'?').split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+        <div>
+          <div class="stars">${'★'.repeat(t.stars||5)}${'☆'.repeat(5-(t.stars||5))}</div>
+          <div class="ta-name">${t.name}</div>
+          <div class="ta-role">${t.role}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderBlog(blog){
+  const g=document.getElementById('blogGrid'); if(!g) return;
+  g.innerHTML=(blog||DEF.blog).map(b=>`
+    <div class="blog-card">
+      <div class="blog-thumb">${b.icon}</div>
+      <div class="blog-body">
+        <div class="blog-meta"><span class="btag">${b.tag}</span><span>${b.date}</span></div>
+        <h3>${b.title}</h3><p>${b.desc}</p>
+        <a href="${b.url||'#'}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>`).join('');
+}
+
+function renderContact(contact,socials){
+  const c=contact||DEF.contact, s=socials||DEF.socials;
+  const cl=document.getElementById('ciList'); if(!cl) return;
+  const items=[
+    {href:`tel:${c.phone}`,icon:'fa-phone',lbl:'Phone',val:c.phone},
+    {href:`https://wa.me/${(c.whatsapp||'').replace(/\D/g,'')}`,icon:'fa-brands fa-whatsapp',lbl:'WhatsApp',val:c.whatsapp},
+    {href:`mailto:${c.email}`,icon:'fa-envelope',lbl:'Email',val:c.email},
+    {href:'#',icon:'fa-map-marker-alt',lbl:'Address',val:c.address},
+    {href:s.facebook,icon:'fa-brands fa-facebook-f',lbl:'Facebook',val:'Facebook Profile'},
+    {href:s.github,icon:'fa-brands fa-github',lbl:'GitHub',val:'GitHub Profile'},
+    {href:s.linkedin,icon:'fa-brands fa-linkedin-in',lbl:'LinkedIn',val:'LinkedIn Profile'},
+    {href:s.youtube,icon:'fa-brands fa-youtube',lbl:'YouTube',val:'YouTube Channel'},
+    {href:s.instagram,icon:'fa-brands fa-instagram',lbl:'Instagram',val:'Instagram Profile'},
+  ];
+  cl.innerHTML=items.map(i=>`
+    <a href="${i.href||'#'}" class="ci-item" target="_blank">
+      <div class="ci-ico"><i class="fas ${i.icon}"></i></div>
+      <div><div class="ci-lbl">${i.lbl}</div><div class="ci-val">${i.val}</div></div>
+    </a>`).join('');
+}
+
+function renderFooter(footer,socials){
+  const f=footer||DEF.footer, s=socials||DEF.socials;
+  $t('footTagline',f.tagline); $t('footCopy',f.copyright);
+  $h('fFb',s.facebook); $h('fGh',s.github); $h('fLi',s.linkedin);
+  $h('fYt',s.youtube); $h('fIg',s.instagram);
+}
+
+// ── LOAD FROM FIREBASE (real-time) ──
+async function loadAll(){
+  const sections=['hero','about','socials','skills','services','apk','projects','videoUrl','stats','testimonials','blog','contact','footer','customDev'];
+  const data={};
+
+  // Load all docs
+  await Promise.all(sections.map(async sec=>{
+    try{
+      const snap=await getDoc(doc(db,'portfolio',sec));
+      data[sec]=snap.exists()?snap.data():DEF[sec];
+    }catch(e){
+      data[sec]=DEF[sec];
+    }
+  }));
+
+  renderHero(data.hero);
+  renderAbout(data.about,data.socials);
+  renderSkills(data.skills?.items||data.skills);
+  renderServices(data.services?.items||data.services);
+  renderCustomDev(data.customDev);
+  renderApk(data.apk);
+  renderProjects(data.projects?.items||data.projects);
+  renderVideo(data.videoUrl?.url||data.videoUrl||'');
+  renderStats(data.stats?.items||data.stats);
+  renderTestimonials(data.testimonials?.items||data.testimonials);
+  renderBlog(data.blog?.items||data.blog);
+  renderContact(data.contact,data.socials);
+  renderFooter(data.footer,data.socials);
+
+  // Real-time listeners — any change by Admin instantly updates the page
+  const rtSections=['hero','about','socials','apk','videoUrl','footer','contact','customDev'];
+  rtSections.forEach(sec=>{
+    onSnapshot(doc(db,'portfolio',sec),(snap)=>{
+      if(!snap.exists()) return;
+      const d=snap.data();
+      if(sec==='hero') renderHero(d);
+      if(sec==='about') onSnapshot(doc(db,'portfolio','socials'),ss=>renderAbout(d,ss.data()));
+      if(sec==='socials'){ onSnapshot(doc(db,'portfolio','about'),ss=>renderAbout(ss.data(),d)); renderContact(null,d); renderFooter(null,d); }
+      if(sec==='apk') renderApk(d);
+      if(sec==='videoUrl') renderVideo(d.url||'');
+      if(sec==='footer') renderFooter(d,null);
+      if(sec==='contact') renderContact(d,null);
+      if(sec==='customDev') renderCustomDev(d);
+    });
+  });
+
+  // Array sections real-time
+  ['skills','services','projects','stats','testimonials','blog'].forEach(sec=>{
+    onSnapshot(doc(db,'portfolio',sec),(snap)=>{
+      if(!snap.exists()) return;
+      const d=snap.data();
+      if(sec==='skills') renderSkills(d.items);
+      if(sec==='services') renderServices(d.items);
+      if(sec==='projects') renderProjects(d.items);
+      if(sec==='stats') renderStats(d.items);
+      if(sec==='testimonials') renderTestimonials(d.items);
+      if(sec==='blog') renderBlog(d.items);
+    });
+  });
+
+  // Hide loader
+  setTimeout(()=>{
+    document.getElementById('siteLoader').classList.add('hide');
+    setTimeout(()=>document.getElementById('siteLoader').remove(),600);
+  },800);
+}
+
+window.submitForm=function(){
+  const n=document.getElementById('cfN').value.trim();
+  const e=document.getElementById('cfE').value.trim();
+  const m=document.getElementById('cfM').value.trim();
+  if(!n||!e||!m){showToast('Please fill all required fields');return;}
+  document.getElementById('cfOk').style.display='block';
+  showToast('Message sent!');
+  setTimeout(()=>document.getElementById('cfOk').style.display='none',5000);
+};
+
+window.showToast=function(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
+};
+
+window.toggleMob=function(){
+  document.getElementById('mobMenu').classList.toggle('open');
+};
+
+loadAll();
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({duration:680,once:true,offset:50});</script>
+</body>
+</html>
