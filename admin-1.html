@@ -124,7 +124,7 @@ body{font-family:'Space Grotesk',sans-serif;background:var(--dark);color:var(--t
     <div class="lf"><label>Password</label><input id="lp" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()"/></div>
     <button class="login-btn" onclick="login()"><i class="fas fa-lock"></i> Login</button>
     <div class="login-err" id="loginErr">❌ Wrong username or password.</div>
-    <div class="login-hint">Default credentials:<br/><b>Username:</b> admin &nbsp;|&nbsp; <b>Password:</b> siraj@2024</div>
+    <div class="login-hint">SK SIRAJ Admin Panel — Authorized Access Only</div>
   </div>
 </div>
 
@@ -520,7 +520,7 @@ function fbStatus(type, msg){
 // ── AUTH ──
 window.login = function(){
   const u = document.getElementById('lu').value.trim(); const p = document.getElementById('lp').value;
-  if(u === 'admin' && p === 'siraj@2024'){
+  if(u === 'admin' && p === getPass()){
     sessionStorage.setItem(SESS_KEY,'1');
     $('loginScreen').style.display='none';
     $('adminApp').style.display='block';
