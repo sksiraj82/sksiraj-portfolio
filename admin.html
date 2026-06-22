@@ -799,23 +799,37 @@ async function loadBlog(){
   blogData = JSON.parse(JSON.stringify(d.items || DEF.blog.items));
   renderBlogEd();
 }
+function getBlogFromForm(){
+  const items=[];
+  document.querySelectorAll('.blog-item').forEach(el=>{
+    items.push({
+      icon: el.querySelector('.b-icon').value,
+      tag: el.querySelector('.b-tag').value,
+      date: el.querySelector('.b-date').value,
+      title: el.querySelector('.b-title').value,
+      desc: el.querySelector('.b-desc').value,
+      url: el.querySelector('.b-url').value,
+    });
+  });
+  return items;
+}
 function renderBlogEd(){
   $('blogEd').innerHTML = blogData.map((b,i)=>`
-    <div class="ac">
-      <div class="arr-hdr"><span>${b.title}</span><button class="rm-btn" onclick="rmBlog(${i})">Remove</button></div>
+    <div class="ac blog-item" data-idx="${i}">
+      <div class="arr-hdr"><span>${b.title||'Article '+(i+1)}</span><button class="rm-btn" onclick="rmBlog(${i})">Remove</button></div>
       <div class="fg-row3">
-        <div class="fg"><label>Emoji</label><input value="${b.icon}" oninput="blogData[${i}].icon=this.value"/></div>
-        <div class="fg"><label>Tag/Category</label><input value="${b.tag}" oninput="blogData[${i}].tag=this.value"/></div>
-        <div class="fg"><label>Date (Dec 2024)</label><input value="${b.date}" oninput="blogData[${i}].date=this.value"/></div>
+        <div class="fg"><label>Emoji</label><input class="b-icon" value="${b.icon||''}"/></div>
+        <div class="fg"><label>Tag/Category</label><input class="b-tag" value="${b.tag||''}"/></div>
+        <div class="fg"><label>Date</label><input class="b-date" value="${b.date||''}"/></div>
       </div>
-      <div class="fg"><label>Title</label><input value="${b.title}" oninput="blogData[${i}].title=this.value"/></div>
-      <div class="fg"><label>Short Description</label><textarea oninput="blogData[${i}].desc=this.value">${b.desc}</textarea></div>
-      <div class="fg"><label>Article URL</label><input value="${b.url}" oninput="blogData[${i}].url=this.value"/></div>
+      <div class="fg"><label>Title</label><input class="b-title" value="${b.title||''}"/></div>
+      <div class="fg"><label>Short Description</label><textarea class="b-desc">${b.desc||''}</textarea></div>
+      <div class="fg"><label>Article URL</label><input class="b-url" value="${b.url||''}"/></div>
     </div>`).join('');
 }
-window.addBlog  = ()=>{ blogData.push({icon:'✍️',tag:'General',date:'Jan 2025',title:'New Article',desc:'Description.',url:'#'}); renderBlogEd(); };
-window.rmBlog   = i =>{ blogData.splice(i,1); renderBlogEd(); };
-window.saveBlog = async ()=>{ await fbSet('blog',{items:blogData}); };
+window.addBlog  = ()=>{ blogData=getBlogFromForm(); blogData.push({icon:'✍️',tag:'General',date:'Jun 2026',title:'New Article',desc:'Description.',url:'#'}); renderBlogEd(); };
+window.rmBlog   = i =>{ blogData=getBlogFromForm(); blogData.splice(i,1); renderBlogEd(); };
+window.saveBlog = async ()=>{ blogData=getBlogFromForm(); await fbSet('blog',{items:blogData}); };
 
 // ── CONTACT ──
 async function loadContact(){
@@ -889,4 +903,3 @@ document.addEventListener('keydown', e=>{ if(e.key==='Enter' && $('loginScreen')
 </script>
 </body>
 </html>
-C
