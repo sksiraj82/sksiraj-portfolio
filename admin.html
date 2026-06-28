@@ -804,12 +804,19 @@ function getBlogFromForm(){
   const items=[];
   document.querySelectorAll('.blog-item').forEach(el=>{
     items.push({
-      icon: el.querySelector('.b-icon').value,
-      tag: el.querySelector('.b-tag').value,
-      date: el.querySelector('.b-date').value,
-      title: el.querySelector('.b-title').value,
-      desc: el.querySelector('.b-desc').value,
-      url: el.querySelector('.b-url').value,
+      icon:        el.querySelector('.b-icon').value,
+      tag:         el.querySelector('.b-tag').value,
+      date:        el.querySelector('.b-date').value,
+      title:       el.querySelector('.b-title').value,
+      desc:        el.querySelector('.b-desc').value,
+      url:         el.querySelector('.b-url').value,
+      author:      el.querySelector('.b-author').value,
+      readTime:    el.querySelector('.b-readtime').value,
+      image:       el.querySelector('.b-image').value,
+      badge:       el.querySelector('.b-badge').value,
+      featured:    el.querySelector('.b-featured').checked,
+      views:       parseInt(el.querySelector('.b-views').value)||0,
+      likes:       parseInt(el.querySelector('.b-likes').value)||0,
     });
   });
   return items;
@@ -817,18 +824,59 @@ function getBlogFromForm(){
 function renderBlogEd(){
   $('blogEd').innerHTML = blogData.map((b,i)=>`
     <div class="ac blog-item" data-idx="${i}">
-      <div class="arr-hdr"><span>${b.title||'Article '+(i+1)}</span><button class="rm-btn" onclick="rmBlog(${i})">Remove</button></div>
-      <div class="fg-row3">
-        <div class="fg"><label>Emoji</label><input class="b-icon" value="${b.icon||''}"/></div>
-        <div class="fg"><label>Tag/Category</label><input class="b-tag" value="${b.tag||''}"/></div>
-        <div class="fg"><label>Date</label><input class="b-date" value="${b.date||''}"/></div>
+      <div class="arr-hdr">
+        <span>${b.featured?'⭐ ':''} ${b.title||'Article '+(i+1)}</span>
+        <button class="rm-btn" onclick="rmBlog(${i})">Remove</button>
       </div>
-      <div class="fg"><label>Title</label><input class="b-title" value="${b.title||''}"/></div>
-      <div class="fg"><label>Short Description</label><textarea class="b-desc">${b.desc||''}</textarea></div>
-      <div class="fg"><label>Article URL</label><input class="b-url" value="${b.url||''}"/></div>
+
+      <div class="fg-row3">
+        <div class="fg"><label>Emoji Icon</label><input class="b-icon" value="${b.icon||''}" placeholder="💡"/></div>
+        <div class="fg"><label>Tag/Category</label><input class="b-tag" value="${b.tag||''}" placeholder="Android"/></div>
+        <div class="fg"><label>Published Date</label><input class="b-date" value="${b.date||''}" placeholder="Jun 2026"/></div>
+      </div>
+
+      <div class="fg"><label>Title</label><input class="b-title" value="${b.title||''}" placeholder="Article title..."/></div>
+      <div class="fg"><label>Short Description</label><textarea class="b-desc" placeholder="Short description...">${b.desc||''}</textarea></div>
+      <div class="fg"><label>Article URL</label><input class="b-url" value="${b.url||''}" placeholder="https://..."/></div>
+
+      <div style="border-top:1px solid var(--border);margin:14px 0;padding-top:14px;">
+        <div style="font-size:.78rem;font-weight:700;color:#7C3AED;margin-bottom:12px;"><i class="fas fa-star"></i> Extra Details</div>
+
+        <div class="fg-row">
+          <div class="fg"><label>✍️ Author Name</label><input class="b-author" value="${b.author||'SK SIRAJ'}" placeholder="SK SIRAJ"/></div>
+          <div class="fg"><label>⏱ Read Time (e.g. 5 min read)</label><input class="b-readtime" value="${b.readTime||'5 min read'}" placeholder="5 min read"/></div>
+        </div>
+
+        <div class="fg"><label>🖼 Featured Image URL (optional)</label><input class="b-image" value="${b.image||''}" placeholder="https://... (Blogger image link)"/></div>
+
+        <div class="fg-row">
+          <div class="fg"><label>🏆 Badge (Featured / Popular / New / Hot)</label>
+            <select class="b-badge">
+              <option value="" ${!b.badge?'selected':''}>None</option>
+              <option value="Featured" ${b.badge==='Featured'?'selected':''}>⭐ Featured</option>
+              <option value="Popular" ${b.badge==='Popular'?'selected':''}>🔥 Popular</option>
+              <option value="New" ${b.badge==='New'?'selected':''}>🆕 New</option>
+              <option value="Hot" ${b.badge==='Hot'?'selected':''}>⚡ Hot</option>
+            </select>
+          </div>
+          <div class="fg"><label>⭐ Mark as Featured Article</label>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+              <input type="checkbox" class="b-featured" ${b.featured?'checked':''} style="width:18px;height:18px;accent-color:#7C3AED;"/>
+              <span style="font-size:.82rem;color:#4B5563;">Show in Featured section</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="fg-row">
+          <div class="fg"><label>👁 View Count</label><input type="number" class="b-views" value="${b.views||0}" placeholder="0" min="0"/></div>
+          <div class="fg"><label>❤️ Like Count</label><input type="number" class="b-likes" value="${b.likes||0}" placeholder="0" min="0"/></div>
+        </div>
+
+        ${b.image ? `<div style="margin-top:8px;"><img src="${b.image}" style="width:100%;max-height:120px;object-fit:cover;border-radius:8px;border:1px solid var(--border);" onerror="this.style.display='none'"/></div>` : ''}
+      </div>
     </div>`).join('');
 }
-window.addBlog  = ()=>{ blogData=getBlogFromForm(); blogData.push({icon:'✍️',tag:'General',date:'Jun 2026',title:'New Article',desc:'Description.',url:'#'}); renderBlogEd(); };
+window.addBlog  = ()=>{ blogData=getBlogFromForm(); blogData.push({icon:'✍️',tag:'General',date:'Jun 2026',title:'New Article',desc:'Description.',url:'#',author:'SK SIRAJ',readTime:'5 min read',image:'',badge:'',featured:false,views:0,likes:0}); renderBlogEd(); };
 window.rmBlog   = i =>{ blogData=getBlogFromForm(); blogData.splice(i,1); renderBlogEd(); };
 window.saveBlog = async ()=>{ blogData=getBlogFromForm(); await fbSet('blog',{items:blogData}); };
 
